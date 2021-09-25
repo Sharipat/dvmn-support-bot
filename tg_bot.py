@@ -18,16 +18,21 @@ def start(update, bot):
     update.message.reply_text('Здравствуйте!')
 
 
+def send_tg_messages(update, bot):
+    text = detect_intent_texts(
+        os.getenv("PROJECT_ID"),
+        os.getenv('SESSION_ID'),
+        update.message.text)
+    update.message.reply_text(text.query_result.fulfillment_text)
+
+
 def main():
     load_dotenv()
     bot_token = os.getenv('BOT_TOKEN')
-    project_id = os.getenv('PROJECT_ID')
-    session_id = os.getenv('SESSION_ID')
-    text = 'I love bacon'
     updater = Updater(token=bot_token, use_context=True)
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler("start", start))
-    detect_intent_texts(project_id, session_id, text)
+    dispatcher.add_handler(MessageHandler(Filters.text, send_tg_messages))
     updater.start_polling()
     updater.idle()
 
