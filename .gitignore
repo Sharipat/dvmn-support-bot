@@ -113,7 +113,7 @@ ENV/
 env.bak/
 venv.bak/
 .idea/*
-
+.idea/inspectionProfiles/*
 # Spyder project settings
 .spyderproject
 .spyproject
