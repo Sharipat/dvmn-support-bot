@@ -13,14 +13,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def start(bot, update):
+def start(update, bot):
     """Send a message when the command /start is issued."""
     update.message.reply_text('Здравствуйте!')
-
-
-def echo(bot, update):
-    """Echo the user message."""
-    update.message.reply_text(update.message.text)
 
 
 def main():
@@ -32,7 +27,6 @@ def main():
     updater = Updater(token=bot_token, use_context=True)
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler("start", start))
-    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
     detect_intent_texts(project_id, session_id, text)
     updater.start_polling()
     updater.idle()
