@@ -11,7 +11,6 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'private_key.json'
 
 
 def start(update):

@@ -13,8 +13,6 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'private_key.json'
-
 
 def send_df_messages(event, project_id, vk_ru_api):
     response = detect_intent_texts(project_id, f'vk-{event.user_id}', event.text)
