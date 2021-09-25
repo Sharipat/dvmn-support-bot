@@ -34,12 +34,13 @@ def main():
     bot_token = os.getenv('BOT_TOKEN')
     project_id = os.getenv('PROJECT_ID')
     session_id = os.getenv('SESSION_ID')
+    text = 'I love bacon'
     updater = Updater(token=bot_token, use_context=True)
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("help", help_command))
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
-    detect_intent_texts(project_id, session_id)
+    detect_intent_texts(project_id, session_id, text)
     updater.start_polling()
     updater.idle()
 
