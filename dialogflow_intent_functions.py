@@ -1,6 +1,7 @@
 import json
 import os
-
+import logging
+import telegram
 from dotenv import load_dotenv
 from google.cloud import dialogflow
 
@@ -45,7 +46,7 @@ def save_questions(json_path):
 def main():
     load_dotenv()
     project_id = os.getenv('PROJECT_ID')
-    json_path = os.getenv('JSON_PATH')
+    json_path = os.getenv('JSON_PATH', 'questions.json')
     questions = save_questions(json_path)
     for display_name, question in questions.items():
         training_phrases_parts = question['questions']

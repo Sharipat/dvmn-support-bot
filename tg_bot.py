@@ -1,6 +1,7 @@
 import logging
 import os
 
+import telegram
 from dotenv import load_dotenv
 from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
 
@@ -13,8 +14,19 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+class TelegramLogsHandler(logging.Handler):
+
+    def __init__(self):
+        super().__init__()
+        self.chat_id = os.getenv('SESSION_ID')
+        self.tg_bot = os.getenv('BOT_TOKEN')
+
+    def emit(self, record):
+        log_entry = self.format(record)
+        self.tg_bot.send_message(chat_id=self.chat_id, text=log_entry)
+
+
 def start(update, bot):
-    """Send a message when the command /start is issued."""
     update.message.reply_text('Здравствуйте!')
 
 
@@ -33,6 +45,7 @@ def main():
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(MessageHandler(Filters.text, send_tg_messages))
+    logger.addHandler(TelegramLogsHandler())
     updater.start_polling()
     updater.idle()
 
