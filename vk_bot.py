@@ -24,7 +24,7 @@ def send_df_messages(event, project_id, vk_ru_api):
         vk_ru_api.messages.send(
             user_id=event.user_id,
             message=response.query_result.fulfillment_text,
-            random_id=random.randint(1, 1000)
+            random_id=random.randint(1, 1000))
 
 
 def main():
