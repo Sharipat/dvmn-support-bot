@@ -50,13 +50,13 @@
 
 [Ссылка на бота](https://t.me/shdvmnsupportbot)
 
-<img src='screenshots/tg_bot.gif' alt="Vk bot" width="480" height="600"/>
+<img src='screenshots/tg_bot.gif' alt="Vk bot" width="417" height="341"/>
 
 ### Бот Вконтакте
 
 [Сссылка на бота](https://vk.com/im?sel=-207140008)
 
-![screenshot](screenshots/vk_bot.gif)
+<img src='screenshots/tg_bot.gif' alt="Vk bot" width="417" height="341"/>
 
 ## Цели проекта
 
