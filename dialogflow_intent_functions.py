@@ -1,7 +1,6 @@
 import json
 import os
-import logging
-import telegram
+
 from dotenv import load_dotenv
 from google.cloud import dialogflow
 

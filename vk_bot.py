@@ -17,15 +17,14 @@ logger = logging.getLogger(__name__)
 
 def send_df_messages(event, project_id, vk_ru_api):
     response = detect_intent_texts(project_id, f'vk-{event.user_id}', event.text)
-    if not response.query_result.intent.is_fallback:
+    if response.query_result.intent.is_fallback:
+        vk_ru_api.messages.send(
+            'К сожалению, бот не знает ответа на ваш вопрос. Вы будете переведены на оператора техподдержки')
+    else:
         vk_ru_api.messages.send(
             user_id=event.user_id,
             message=response.query_result.fulfillment_text,
             random_id=random.randint(1, 1000)
-        )
-    else:
-        vk_ru_api.messages.send(
-            'К сожалению, бот не знает ответа на ваш вопрос. Вы будете переведены на оператора техподдержки')
 
 
 def main():
