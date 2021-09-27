@@ -15,11 +15,13 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def send_df_messages(event, project_id, vk_ru_api):
+def send_vk_messages(event, project_id, vk_ru_api):
     response = detect_intent_texts(project_id, f'vk-{event.user_id}', event.text)
     if response.query_result.intent.is_fallback:
         vk_ru_api.messages.send(
-            'К сожалению, бот не знает ответа на ваш вопрос. Вы будете переведены на оператора техподдержки')
+            user_id=event.user_id,
+            message='К сожалению, бот не знает ответа на ваш вопрос. Вы будете переведены на оператора техподдержки.',
+            random_id=random.randint(1, 1000))
     else:
         vk_ru_api.messages.send(
             user_id=event.user_id,
@@ -35,10 +37,8 @@ def main():
     vk_ru_api = vk_session.get_api()
     longpoll = VkLongPoll(vk_session)
     for event in longpoll.listen():
-        if event.type == VkEventType.MESSAGE_NEW:
-            print('Новое сообщение:')
-            if event.to_me:
-                send_df_messages(event, project_id, vk_ru_api)
+        if event.type == VkEventType.MESSAGE_NEW and event.to_me:
+            send_vk_messages(event, project_id, vk_ru_api)
 
 
 if __name__ == '__main__':
