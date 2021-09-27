@@ -23,6 +23,9 @@ def send_df_messages(event, project_id, vk_ru_api):
             message=response.query_result.fulfillment_text,
             random_id=random.randint(1, 1000)
         )
+    else:
+        vk_ru_api.messages.send(
+            'К сожалению, бот не знает ответа на ваш вопрос. Вы будете переведены на оператора техподдержки')
 
 
 def main():

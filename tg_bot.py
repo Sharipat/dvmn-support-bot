@@ -35,7 +35,11 @@ def send_tg_messages(update, bot):
         os.getenv("PROJECT_ID"),
         os.getenv('SESSION_ID'),
         update.message.text)
-    update.message.reply_text(text.query_result.fulfillment_text)
+    if not text.query_result.intent.is_fallback:
+        update.message.reply_text(text.query_result.fulfillment_text)
+    else:
+        update.message.reply_text(
+            'К сожалению, бот не знает ответа на ваш вопрос. Вы будете переведены на оператора техподдержки')
 
 
 def main():
