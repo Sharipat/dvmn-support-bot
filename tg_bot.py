@@ -1,5 +1,6 @@
 import logging
 import os
+from logging.handlers import RotatingFileHandler
 
 from dotenv import load_dotenv
 from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
@@ -10,7 +11,7 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
 )
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('tg_support_bot')
 
 
 class TelegramLogsHandler(logging.Handler):
@@ -27,6 +28,10 @@ class TelegramLogsHandler(logging.Handler):
 
 def start(update, bot):
     update.message.reply_text('Здравствуйте!')
+
+
+def error(bot, update, error):
+    logger.warning('Update "%s" caused error "%s"', update, error)
 
 
 def send_tg_messages(update, chat_id):
@@ -48,6 +53,8 @@ def main():
     updater = Updater(token=bot_token, use_context=True)
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler("start", start))
+    dispatcher.add_error_handler(error)
+    logger.addHandler(RotatingFileHandler("app.log", maxBytes=200, backupCount=2))
     dispatcher.add_handler(MessageHandler(Filters.text, send_tg_messages))
     logger.addHandler(TelegramLogsHandler(bot_token, chat_id))
     updater.start_polling()

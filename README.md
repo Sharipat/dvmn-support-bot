@@ -50,7 +50,7 @@
 
 [Ссылка на бота](https://t.me/shdvmnsupportbot)
 
-<img src='screenshots/tg_bot.gif' alt="Vk bot" width="573" height="620"/>
+<img src='screenshots/tg_bot.gif' alt="Vk bot" width="317" height="620"/>
 
 ### Бот Вконтакте
 
