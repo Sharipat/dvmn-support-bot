@@ -15,7 +15,7 @@
 
 ```BOT_TOKEN``` - токен вашего бота в Телеграм от [BotFather](https://telegram.me/BotFather)
 
-```SESSION_ID``` - ID для чата с ботом в Телеграм [userinfobot](https://telegram.me/userinfobot)
+```CHAT_ID``` - ID для чата с ботом в Телеграм [userinfobot](https://telegram.me/userinfobot)
 
 ```PROJECT_ID``` - Project ID, указанный в свойствах к агенту в Dialogflow
 

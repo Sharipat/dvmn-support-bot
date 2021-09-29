@@ -7,19 +7,16 @@ from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
 
 from dialogflow_intent_functions import detect_intent_texts
 
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
-)
 
 logger = logging.getLogger('tg_support_bot')
 
 
 class TelegramLogsHandler(logging.Handler):
 
-    def __init__(self, bot_token, chat_id):
+    def __init__(self):
         super().__init__()
-        self.chat_id = chat_id
-        self.tg_bot = bot_token
+        self.chat_id = os.getenv('CHAT_ID')
+        self.tg_bot = os.getenv('BOT_TOKEN')
 
     def emit(self, record):
         log_entry = self.format(record)
@@ -34,7 +31,7 @@ def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"', update, error)
 
 
-def send_tg_messages(update, chat_id):
+def handle_tg_messages(update, chat_id):
     text = detect_intent_texts(
         os.getenv("PROJECT_ID"),
         chat_id,
@@ -48,15 +45,18 @@ def send_tg_messages(update, chat_id):
 
 def main():
     load_dotenv()
+    logging.basicConfig(
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
+    )
+    logger.setLevel(logging.DEBUG)
     bot_token = os.getenv('BOT_TOKEN')
-    chat_id = os.getenv('SESSION_ID')
     updater = Updater(token=bot_token, use_context=True)
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_error_handler(error)
     logger.addHandler(RotatingFileHandler("app.log", maxBytes=200, backupCount=2))
-    dispatcher.add_handler(MessageHandler(Filters.text, send_tg_messages))
-    logger.addHandler(TelegramLogsHandler(bot_token, chat_id))
+    dispatcher.add_handler(MessageHandler(Filters.text, handle_tg_messages))
+    logger.addHandler(TelegramLogsHandler)
     updater.start_polling()
     updater.idle()
 
