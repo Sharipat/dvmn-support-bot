@@ -7,7 +7,6 @@ from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
 
 from dialogflow_intent_functions import detect_intent_texts
 
-
 logger = logging.getLogger('tg_support_bot')
 
 
@@ -39,7 +38,8 @@ def handle_tg_messages(update, chat_id):
     if text.query_result.intent.is_fallback:
         update.message.reply_text(
             'К сожалению, бот не знает ответа на ваш вопрос.')
-    else:        update.message.reply_text(text.query_result.fulfillment_text)
+    else:
+        update.message.reply_text(text.query_result.fulfillment_text)
 
 
 def main():
