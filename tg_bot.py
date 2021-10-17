@@ -36,10 +36,7 @@ def handle_tg_messages(update, chat_id):
         os.getenv("PROJECT_ID"),
         chat_id,
         update.message.text)
-    if text.query_result.intent.is_fallback:
-        update.message.reply_text(
-            'К сожалению, бот не знает ответа на ваш вопрос. Вы будете переведены на оператора техподдержки.')
-    else:
+    if not text.query_result.intent.is_fallback:
         update.message.reply_text(text.query_result.fulfillment_text)
 
 

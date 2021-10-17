@@ -13,12 +13,14 @@ logger = logging.getLogger('vk_support_bot')
 
 def handle_vk_messages(event, project_id, vk_ru_api):
     response = detect_intent_texts(project_id, f'vk-{event.user_id}', event.text)
-    if not response.query_result.intent.is_fallback:
+    if response.query_result.intent.is_fallback:
+        message = 'К сожалению, бот не знает ответа на ваш вопрос. Вы будете переведены на оператора техподдержки.'
+    else:
         message = response.query_result.fulfillment_text
-        vk_ru_api.messages.send(
-            user_id=event.user_id,
-            message=message,
-            random_id=random.randint(1, 1000))
+    vk_ru_api.messages.send(
+        user_id=event.user_id,
+        message=message,
+        random_id=random.randint(1, 1000))
 
 
 def main():
