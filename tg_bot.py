@@ -2,6 +2,7 @@ import logging
 import os
 from logging.handlers import RotatingFileHandler
 
+import telegram
 from dotenv import load_dotenv
 from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
 
@@ -12,10 +13,10 @@ logger = logging.getLogger('tg_support_bot')
 
 class TelegramLogsHandler(logging.Handler):
 
-    def __init__(self, chat_id, bot_token):
+    def __init__(self, tg_bot, chat_id):
         super().__init__()
         self.chat_id = chat_id
-        self.tg_bot = bot_token
+        self.tg_bot = tg_bot
 
     def emit(self, record):
         log_entry = self.format(record)
@@ -56,7 +57,7 @@ def main():
     dispatcher.add_error_handler(handle_error)
     logger.addHandler(RotatingFileHandler("app.log", maxBytes=200, backupCount=2))
     dispatcher.add_handler(MessageHandler(Filters.text, handle_tg_messages))
-    logger.addHandler(TelegramLogsHandler(chat_id, bot_token))
+    logger.addHandler(TelegramLogsHandler(telegram.Bot(token=bot_token), chat_id))
     updater.start_polling()
     updater.idle()
 
