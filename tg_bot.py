@@ -23,24 +23,24 @@ class TelegramLogsHandler(logging.Handler):
         self.tg_bot.send_message(chat_id=self.chat_id, text=log_entry)
 
 
-def start(update, bot):
-    update.message.reply_text('Здравствуйте!')
+def start(update, context):
+    user = update.effective_user
+    update.message.reply_markdown_v2(
+        fr'Приветствую, {user.mention_markdown_v2()}\!',
+        reply_markup=telegram.ForceReply(selective=True),
+    )
 
 
-def handle_error(bot, update, error):
-    logger.warning('Update "%s" caused error "%s"', update, error)
+def handle_error(update, context):
+    logger.warning('Update "%s" caused error "%s"', update, context.error)
 
 
-def handle_tg_messages(update, chat_id):
+def handle_tg_messages(update, context):
     text = detect_intent_texts(
         os.getenv("PROJECT_ID"),
-        chat_id,
+        context,
         update.message.text)
-    if text.query_result.intent.is_fallback:
-        update.message.reply_text(
-            'К сожалению, бот не знает ответа на ваш вопрос.')
-    else:
-        update.message.reply_text(text.query_result.fulfillment_text)
+    update.message.reply_text(text.query_result.fulfillment_text)
 
 
 def main():
