@@ -38,7 +38,7 @@ def handle_error(update, context):
 def handle_tg_messages(update, context):
     text = detect_intent_texts(
         os.getenv("PROJECT_ID"),
-        context,
+        f'tg-{update.effective_user.id}',
         update.message.text)
     update.message.reply_text(text.query_result.fulfillment_text)
 
