@@ -1,66 +1,66 @@
-## Боты для Вк и Телеграм
+## Bots for VK and Telegram
 
-Представленные боты для Телеграм и Вконтакте общаются с пользователем при помощи Dialogflow.
+The presented bots for Telegram and VKontakte communicate with the user using Dialogflow.
 
-## Запуск
+## Launch
 
-Скачайте код с [Github](https://github.com/Shirlusha/dvmn-support-bot)
+Download the code from [Github](https://github.com/Sharipat/dvmn-support-bot)
 
-Установите зависимости командой
+Install dependencies with the command
 
 ```
- pip install -r requirements.txt
- ```
+  pip install -r requirements.txt
+  ```
 
-В корне папки создайте файл ```.env```, в который впишите
+In the root of the folder, create a file ```.env```, in which write
 
-```BOT_TOKEN``` - токен вашего бота в Телеграм от [BotFather](https://telegram.me/BotFather)
+```BOT_TOKEN``` - the token of your bot in Telegram from [BotFather](https://telegram.me/BotFather)
 
-```CHAT_ID``` - ID для чата с ботом в Телеграм [userinfobot](https://telegram.me/userinfobot)
+```CHAT_ID``` - ID for chatting with a bot in Telegram [userinfobot](https://telegram.me/userinfobot)
 
-```PROJECT_ID``` - Project ID, указанный в свойствах к агенту в Dialogflow
+```PROJECT_ID``` - Project ID specified in the agent properties in Dialogflow
 
-```JSON_PATH``` - путь к файлу json c вопросами для бота, по умолчанию ```questions.json```
+```JSON_PATH``` - path to the json file with questions for the bot, by default ```questions.json```
 
-```GOOGLE_APPLICATION_CREDENTIALS``` - путь к файлу json с секретным ключом, пример создания
-по [ссылке](https://cloud.google.com/docs/authentication/getting-started)
+```GOOGLE_APPLICATION_CREDENTIALS``` - path to the json file with the secret key, example of creation
+via [link](https://cloud.google.com/docs/authentication/getting-started)
 
-```VK_ACESS_TOKEN``` - API ключ от вашей группы Вконтакте, лежащий в разделе "Работа с API"
+```VK_ACESS_TOKEN``` - API key for your VKontakte group, located in the “Working with API” section
 
-Запустите бота командой
+Launch the bot with the command
 
-**Вконтакте**
+**In contact with**
 
- ```
-  python3 tg_bot.py
- ```
+  ```
+   python3 vk_bot.py
+  ```
 
-**Телеграм**
+**Telegram**
 
- ```
-  python3 tg_bot.py
- ```
+  ```
+   python3 tg_bot.py
+  ```
 
-Для тренировки ботов новым фразам воспользуйтесь скриптом:
+To train bots with new phrases, use the script:
 
- ```
-  python3 dialogflow_intent_functions.py
- ```
+  ```
+   python3 dialogflow_intent_functions.py
+  ```
 
-## Пример ботов
+## Example of bots
 
-### Бот в Телеграм
+### Bot in Telegram
 
-[Ссылка на бота](https://t.me/shdvmnsupportbot)
+[Link to bot](https://t.me/shdvmnsupportbot)
 
 <img src='screenshots/tg_bot.gif' alt="Vk bot" width="455" height="401"/>
 
-### Бот Вконтакте
+### VKontakte bot
 
-[Сссылка на бота](https://vk.com/im?sel=-207140008)
+[Link to bot](https://vk.com/im?sel=-207140008)
 
 <img src='screenshots/vk_bot.gif' alt="Vk bot" width="417" height="389"/>
 
-## Цели проекта
+## Project goals
 
-Код написан в учебных целях — это урок в курсе по Python и веб-разработке на сайте [Devman](https://dvmn.org).
+The code is written for educational purposes - this is a lesson in the course on Python and web development on the site [Devman](https://dvmn.org).
